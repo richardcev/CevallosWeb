@@ -20,21 +20,34 @@ const technologies = [
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let paused = false;
     let frame = 0;
+    let lastTime = performance.now();
     const loopWidth = () => track.scrollWidth / 2;
-    const tick = () => {
+    const tick = (time: number) => {
+      const elapsed = Math.min(time - lastTime, 100);
+      lastTime = time;
       if (!paused && !reduced.matches) {
-        track.scrollLeft += 1.5;
+        track.scrollLeft += elapsed * 0.09;
         if (track.scrollLeft >= loopWidth()) track.scrollLeft -= loopWidth();
       }
       frame = requestAnimationFrame(tick);
     };
     const move = (direction: number) => {
       paused = true;
+      track.style.scrollBehavior = reduced.matches ? 'auto' : 'smooth';
       track.scrollBy({ left: direction * track.clientWidth * .8, behavior: reduced.matches ? 'instant' : 'smooth' });
-      window.setTimeout(() => { paused = false; }, 2200);
+      window.setTimeout(() => {
+        track.style.scrollBehavior = 'auto';
+        lastTime = performance.now();
+        paused = false;
+      }, 2200);
     };
     track.addEventListener('mouseenter', () => { paused = true; });
     track.addEventListener('mouseleave', () => { paused = false; });
+    track.addEventListener('pointerdown', () => { paused = true; });
+    track.addEventListener('pointerup', () => {
+      window.setTimeout(() => { lastTime = performance.now(); paused = false; }, 1200);
+    });
+    track.addEventListener('pointercancel', () => { paused = false; });
     track.addEventListener('focusin', () => { paused = true; });
     track.addEventListener('focusout', () => { paused = false; });
     track.addEventListener('keydown', event => {
@@ -44,7 +57,12 @@ const technologies = [
         else track.scrollTo({ left: event.key === 'Home' ? 0 : loopWidth(), behavior: reduced.matches ? 'instant' : 'smooth' });
       }
     });
-    reduced.addEventListener('change', () => { if (reduced.matches) track.scrollLeft = 0; });
+    reduced.addEventListener('change', () => {
+      track.style.scrollBehavior = 'auto';
+      if (reduced.matches) track.scrollLeft = 0;
+      lastTime = performance.now();
+    });
+    track.style.scrollBehavior = 'auto';
     frame = requestAnimationFrame(tick);
     window.addEventListener('pagehide', () => cancelAnimationFrame(frame), { once: true });
   }
