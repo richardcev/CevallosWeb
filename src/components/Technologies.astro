@@ -1,0 +1,51 @@
+---
+const technologies = [
+  ['HTML', 'html5'], ['CSS', 'css3'], ['JavaScript', 'javascript'], ['Python', 'python'], ['React.js', 'react'], ['Astro', 'astro'],
+  ['Django', 'django'], ['FastAPI', 'fastapi'], ['WordPress', 'wordpress'], ['Hostinger', 'hostinger'], ['Claude Code', 'claudecode'], ['Codex', 'codex'],
+];
+---
+<section id="tecnologias" class="section light-section technologies-section">
+  <div class="container">
+    <div class="center-heading" data-reveal><h2>Tecnologías &amp; herramientas</h2><p>Como diseñador de páginas web y desarrollador full stack, domino un stack completo de tecnologías modernas para crear soluciones web robustas, escalables y adaptadas a las necesidades de cada proyecto. Entre ellas se incluyen HTML, CSS, JavaScript, Python, React.js, Astro, Django, FastAPI, WordPress, Hostinger, Claude Code, Codex, entre otras, lo que me permite desarrollar desde sitios web profesionales hasta aplicaciones y sistemas complejos que optimizan los procesos de tu negocio.</p></div>
+    <div class="technology-slider" data-reveal>
+      <div id="technology-track" class="technology-track" role="region" aria-label="Tecnologías y herramientas. Carrusel automático; también puedes desplazarlo horizontalmente o utilizar las teclas de dirección." tabindex="0">
+        {[...technologies, ...technologies].map(([label, file], index) => <div class="technology" aria-hidden={index >= technologies.length ? 'true' : undefined}><img src={`/technologies/${file}.svg`} alt={index >= technologies.length ? '' : `Logotipo de ${label}`} width="48" height="48" loading="lazy" /><span>{label}</span></div>)}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const track = document.querySelector<HTMLElement>('.technology-track');
+  if (track) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let paused = false;
+    let frame = 0;
+    const loopWidth = () => track.scrollWidth / 2;
+    const tick = () => {
+      if (!paused && !reduced.matches) {
+        track.scrollLeft += 1.5;
+        if (track.scrollLeft >= loopWidth()) track.scrollLeft -= loopWidth();
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    const move = (direction: number) => {
+      paused = true;
+      track.scrollBy({ left: direction * track.clientWidth * .8, behavior: reduced.matches ? 'instant' : 'smooth' });
+      window.setTimeout(() => { paused = false; }, 2200);
+    };
+    track.addEventListener('mouseenter', () => { paused = true; });
+    track.addEventListener('mouseleave', () => { paused = false; });
+    track.addEventListener('focusin', () => { paused = true; });
+    track.addEventListener('focusout', () => { paused = false; });
+    track.addEventListener('keydown', event => {
+      if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+        event.preventDefault();
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') move(event.key === 'ArrowLeft' ? -1 : 1);
+        else track.scrollTo({ left: event.key === 'Home' ? 0 : loopWidth(), behavior: reduced.matches ? 'instant' : 'smooth' });
+      }
+    });
+    reduced.addEventListener('change', () => { if (reduced.matches) track.scrollLeft = 0; });
+    frame = requestAnimationFrame(tick);
+    window.addEventListener('pagehide', () => cancelAnimationFrame(frame), { once: true });
+  }
+</script>

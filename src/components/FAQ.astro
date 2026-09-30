@@ -1,0 +1,19 @@
+---
+import { faqs } from '../data/content';
+import Icon from './Icon.astro';
+---
+<section id="preguntas-frecuentes" class="section light-section">
+  <div class="container faq-layout">
+    <div class="section-heading" data-reveal><span class="eyebrow">PREGUNTAS FRECUENTES</span><h2>Encuentra las respuestas que necesitas</h2><span class="heading-rule" aria-hidden="true"></span></div>
+    <div class="faq-list" data-reveal>
+      {faqs.map(([question, answer], index) => <details class="faq-item" name="faq" open={index === 0}><summary><h3>{question}</h3><Icon name="plus" size={20} /></summary><div class="faq-answer"><p>{answer}</p></div></details>)}
+    </div>
+  </div>
+</section>
+<script>
+  const items = document.querySelectorAll<HTMLDetailsElement>('.faq-item');
+  // Explicitly close siblings, including in browsers without details[name] support.
+  items.forEach(item => item.addEventListener('toggle', () => {
+    if (item.open) items.forEach(other => { if (other !== item) other.open = false; });
+  }));
+</script>

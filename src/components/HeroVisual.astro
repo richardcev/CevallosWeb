@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import developerPhoto from '../assets/ai-workspace.jpg';
+---
+<div class="studio-visual" role="img" aria-label="Composición de un sitio web responsive, una tienda online y conexiones API, ilustrando soluciones digitales a medida">
+  <div class="visual-backdrop"></div>
+  <div class="hero-photo-frame">
+    <div class="photo-frame-label"><span>DESARROLLO WEB</span><span>01 / 04</span></div>
+    <Image src={developerPhoto} alt="Personas trabajando con dispositivos y código asistido por inteligencia artificial" width={760} height={900} sizes="(max-width: 767px) 90vw, 48vw" fit="cover" position="center" loading="eager" fetchpriority="high" class="hero-developer-photo" format="webp" />
+    <div class="photo-frame-glow"></div>
+  </div>
+  <div class="floating-logos" aria-label="Tecnologías utilizadas">
+    <div class="floating-logo logo-html"><img src="/technologies/html5.svg" alt="HTML" width="42" height="42" /></div>
+    <div class="floating-logo logo-css"><img src="/technologies/css3.svg" alt="CSS" width="42" height="42" /></div>
+    <div class="floating-logo logo-js"><img src="/technologies/javascript.svg" alt="JavaScript" width="42" height="42" /></div>
+    <div class="floating-logo logo-wordpress"><img src="/technologies/wordpress.svg" alt="WordPress" width="42" height="42" /></div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+import '@fontsource/poppins/latin-500.css';
+import '@fontsource/poppins/latin-600.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+const title = 'Desarrollo web en Guayaquil, Ecuador | Richard Cevallos';
+const description = 'Potencia tu negocio con diseño de páginas web, tiendas online, software a medida e integración de APIs en Guayaquil, Ecuador. Hablemos de tu proyecto.';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = new URL('/social-card.jpg', Astro.site);
+const schema = {
+  '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Cevallos Web',
+  url: Astro.site?.href, description, image: image.href, telephone: '+593980185987', email: 'rcevallosapolo@gmail.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Guayaquil', addressCountry: 'EC' },
+  areaServed: { '@type': 'Country', name: 'Ecuador' },
+  founder: { '@type': 'Person', name: 'Richard Cevallos Apolo', jobTitle: 'Ingeniero en computación' },
+  sameAs: ['https://www.linkedin.com/in/richard-cevallos/', 'https://www.youtube.com/@richard_cevallos'],
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Servicios de desarrollo web', itemListElement: ['Diseño de páginas web', 'Desarrollo de software', 'Integración de APIs y sistemas'].map(name => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })) },
+};
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" /><title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content="website" /><meta property="og:locale" content="es_EC" /><meta property="og:site_name" content="Cevallos Web" />
+    <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="Cevallos Web — Desarrollo web y software a medida en Guayaquil, Ecuador" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={image} /><meta name="twitter:image:alt" content="Cevallos Web — Desarrollo web y software a medida en Guayaquil, Ecuador" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+  </head>
+  <body><a class="skip-link" href="#contenido">Saltar al contenido</a><slot />
+    <script>
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      if (!reduced.matches && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); }
+        }), { threshold: 0.08 });
+        document.querySelectorAll<HTMLElement>('[data-reveal]').forEach(element => {
+          if (element.getBoundingClientRect().top > innerHeight) { element.classList.add('will-reveal'); observer.observe(element); }
+        });
+      }
+    </script>
+  </body>
+</html>

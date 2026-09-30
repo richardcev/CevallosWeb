@@ -1,0 +1,7 @@
+---
+import { whatsapp } from '../data/content';
+interface Props { href?: string; variant?: 'primary' | 'outline' | 'dark'; class?: string; }
+const { href = whatsapp, variant = 'primary', class: className = '' } = Astro.props;
+const external = href.startsWith('https://');
+---
+<a href={href} class:list={['button', `button-${variant}`, className]} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}><slot /></a>

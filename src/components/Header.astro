@@ -1,0 +1,35 @@
+---
+import { navigation } from '../data/content';
+import Button from './Button.astro';
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#inicio" class="brand" aria-label="Cevallos Web — Inicio"><img src="/logo-header.png" width="366" height="233" alt="Cevallos Web" fetchpriority="high" /></a>
+    <nav id="main-navigation" aria-label="Navegación principal">
+      {navigation.map(([label, href]) => <a href={href}>{label}</a>)}
+    </nav>
+    <Button class="header-cta">Contáctame</Button>
+    <button class="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span></button>
+  </div>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#main-navigation');
+  const setMenu = (open: boolean) => {
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    nav?.classList.toggle('is-open', open);
+  };
+  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); } });
+  document.addEventListener('click', event => { if (event.target instanceof Node && !document.querySelector('.site-header')?.contains(event.target)) setMenu(false); });
+  matchMedia('(min-width: 1024px)').addEventListener('change', () => setMenu(false));
+  const links = nav?.querySelectorAll('a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) links?.forEach(link => {
+      if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
+    }); });
+  }, { rootMargin: '-15% 0px -60% 0px' });
+  links?.forEach(link => { const section = document.querySelector(link.hash); if (section) observer.observe(section); });
+</script>

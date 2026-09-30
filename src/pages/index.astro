@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/richard-cevallos.webp';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import FAQ from '../components/FAQ.astro';
+import Technologies from '../components/Technologies.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import webImage from '../assets/paginas-web.webp';
+import softwareImage from '../assets/desarrollo-software.webp';
+import apiImage from '../assets/integracion-api.webp';
+import businessImage from '../assets/negocios-digitales.webp';
+import { services, benefits, whatsapp } from '../data/content';
+const serviceImages = [webImage, softwareImage, apiImage];
+const serviceAlts = ['Diseño de un blog profesional en una computadora portátil', 'Desarrollador programando una aplicación de software', 'Integración de aplicaciones y dispositivos mediante APIs'];
+---
+<Layout>
+  <Header />
+  <main id="contenido">
+    <section id="inicio" class="hero">
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <span class="eyebrow">DESARROLLO WEB &amp; SOFTWARE A MEDIDA</span>
+          <h1>Transforma tu negocio con soluciones digitales de <span>alto impacto</span></h1>
+          <p>Desarrollo páginas web, sistemas a medida y automatizaciones estratégicas diseñadas para escalar tu empresa. Convierte la tecnología en tu mayor ventaja competitiva.</p>
+          <div class="hero-actions"><Button>Contáctame</Button><Button href="#servicios" variant="outline">Explora mis servicios</Button></div>
+        </div>
+        <div class="hero-visual"><HeroVisual /></div>
+      </div>
+    </section>
+
+    <section id="servicios" class="section light-section">
+      <div class="container">
+        <div class="section-title-row" data-reveal><div><h2>Conoce mis servicios</h2></div></div>
+        <div class="services-grid grid grid-cols-1 lg:grid-cols-3">
+          {services.map((service, index) => <article class="service-card" data-reveal><div class="service-image"><Image src={serviceImages[index]} alt={serviceAlts[index]} widths={[400, 640, 900]} sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 380px" width={640} height={420} fit="cover" loading="lazy" format="webp" /></div><div class="service-body"><h3>{service.title}</h3><p>{service.description}</p></div></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section id="publico-objetivo" class="section audience-section light-section">
+      <div class="container split-layout">
+        <div class="audience-visual" data-reveal><Image src={businessImage} alt="Compras online y servicios digitales conectados desde un teléfono móvil" widths={[480, 720, 1100]} sizes="(max-width: 767px) 90vw, 48vw" width={720} height={760} fit="cover" loading="lazy" format="webp" /><div class="audience-caption"><span>NEGOCIOS CON VISIÓN DE FUTURO</span><strong>El siguiente paso es digital.</strong></div></div>
+        <div class="section-copy" data-reveal><h2>¿A quién van dirigidos mis servicios?</h2><p>Mis servicios están pensados para negocios y emprendedores que buscan potenciar su marca y crecer en el mundo digital. Trabajo con empresas que desean vender online a través de tiendas virtuales, crear blogs profesionales para compartir contenido de valor, o desarrollar sitios web corporativos que transmitan confianza y credibilidad.</p><p>Además, puedo desarrollar sistemas web complejos con funcionalidades específicas adaptadas a cada negocio. Por ejemplo, aplicaciones para gestionar inventarios y ventas, automatizar procesos administrativos o administrar reservas y citas de manera eficiente.</p><Button>Contáctame</Button></div>
+      </div>
+    </section>
+
+    <section id="sobre-mi" class="section about-section">
+      <div class="container split-layout about-layout">
+        <div class="about-photo" data-reveal><Image src={portrait} alt="Retrato profesional a color de Richard Cevallos Apolo" widths={[400, 640, 900]} sizes="(max-width: 767px) 90vw, 440px" width={540} height={620} fit="cover" loading="lazy" class="about-portrait" format="webp" /><div class="about-photo-caption"><strong>Richard Cevallos Apolo</strong><span>Ingeniero en computación · Guayaquil, Ecuador</span></div></div>
+        <div class="section-copy" data-reveal><h2>Sobre mí</h2><p>Soy Richard Cevallos Apolo, ingeniero en computación. Tengo experiencia en diseño de páginas web y desarrollo de software para empresas de distintos sectores. Ofrezco servicios de diseño y desarrollo web optimizado para tu negocio.</p><p>Desarrollo sitios web corporativos y tiendas online utilizando <a href="https://es-ec.wordpress.org/" target="_blank" rel="noopener noreferrer" class="inline-link">WordPress</a>, adaptados a las necesidades de diversos negocios. Estas soluciones están diseñadas para ofrecer una presencia digital profesional, funcional y alineada con los objetivos del cliente.</p><p>Conozco a profundidad todas las etapas del desarrollo de software: desde la recolección de requerimientos, diseño de arquitectura, implementación y pruebas, hasta el despliegue y mantenimiento de los sistemas. Esto me permite entregar soluciones robustas y adaptadas a cada proyecto.</p><Button>Contáctame</Button></div>
+      </div>
+    </section>
+
+    <section id="soluciones" class="section light-section">
+      <div class="container"><div class="solutions-heading" data-reveal><div><h2>Soluciones digitales listas para producir valor</h2></div><p>Te ofrezco un servicio profesional de diseño y desarrollo web, enfocado en crear soluciones digitales personalizadas que se adapten a las necesidades de tu negocio. Mi objetivo es brindarte un sitio web moderno, funcional y optimizado, que no solo refleje la identidad de tu marca, sino que también te ayude a atraer clientes, mejorar tu presencia online y facilitar la gestión de tus procesos.</p></div><ul class="benefits-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" data-reveal>{benefits.map(([icon, text]) => <li><span class="benefit-icon"><Icon name={icon} size={25} /></span><h3>{text}</h3></li>)}</ul></div>
+    </section>
+
+    <Technologies />
+    <FAQ />
+
+    <section id="contacto" class="contact-section">
+      <div class="container"><div class="contact-inner" data-reveal><div class="contact-copy"><h2>¿Tienes un proyecto en mente?</h2><p>Te ayudo a llevarlo a cabo</p></div><Button href={whatsapp}>Hablemos del proyecto</Button></div></div>
+    </section>
+  </main>
+  <footer class="footer dark-section">
+    <div class="container footer-grid"><div class="footer-brand"><a href="#inicio" aria-label="Cevallos Web — volver al inicio"><img src="/logo.webp" alt="Cevallos Web" width="145" height="90" loading="lazy" /></a><p>Me especializo en el desarrollo de software y estoy comprometido con la calidad y la innovación tecnológica.</p></div><div><h3>Contacto</h3><address><a href="tel:+593980185987"><Icon name="phone" size={17} />0980185987</a><a href="mailto:rcevallosapolo@gmail.com"><Icon name="mail" size={17} />rcevallosapolo@gmail.com</a><span><Icon name="pin" size={17} />Guayaquil – Ecuador</span></address></div><div><h3>Sígueme en redes sociales</h3><div class="social-links"><a href="https://www.linkedin.com/in/richard-cevallos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="/social/linkedin-white.png" alt="" width="840" height="779" loading="lazy" /></a><a href="https://www.youtube.com/@richard_cevallos" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="/social/youtube-white.png" alt="" width="1255" height="1075" loading="lazy" /></a></div></div></div>
+    <div class="container footer-bottom"><span>Todos los derechos reservados © 2026</span><a href="#inicio">Volver al inicio</a></div>
+  </footer>
+</Layout>
