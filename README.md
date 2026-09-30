@@ -22,7 +22,7 @@ npm run preview
 
 La salida estática se genera en `dist/`. Publicar su contenido en el hosting elegido.
 
-**Dominio pendiente de confirmar:** `astro.config.mjs` usa temporalmente `https://softagile.net`, el dominio de los enlaces proporcionados. Antes de publicar, definir `SITE_URL` con el dominio real; controla canonical, Open Graph, datos estructurados, sitemap y robots.txt. En PowerShell:
+**Dominio configurado:** `https://cevallosweb.com`. `SITE_URL` puede sobrescribirse en otros entornos; controla canonical, Open Graph, datos estructurados, sitemap y robots.txt. En PowerShell:
 
 ```powershell
 $env:SITE_URL = 'https://tu-dominio.com'

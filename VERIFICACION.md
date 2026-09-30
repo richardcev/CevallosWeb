@@ -36,4 +36,4 @@ Instagram permanece como texto pendiente. Teléfono y correo utilizan `tel:` y `
 
 ## Configuración pendiente antes de publicar
 
-Confirmar el dominio y definir `SITE_URL`. El dominio provisional `https://softagile.net` se tomó de los enlaces suministrados, sin asumir que sea el destino definitivo. Esta configuración genera canonical, Open Graph, JSON-LD, robots.txt y sitemap. No se ha publicado el sitio.
+El dominio configurado es `https://cevallosweb.com`. `SITE_URL` puede sobrescribirse para otros entornos. Esta configuración genera canonical, Open Graph, JSON-LD, robots.txt y sitemap.
